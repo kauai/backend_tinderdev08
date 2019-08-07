@@ -1,37 +1,35 @@
 import React,{ useState, useEffect } from 'react'
+import api from '../services/api'
 import './Loggin.css'
 import logo from '../assets/logo.svg'
 
-const Login = () => {
- const [ userName, setUserName ] = useState({ name: '' ,password:''})
+const Login = ({ history }) => {
+ const [ userName, setUserName ] = useState('')
 
- function user(e){
-    setUserName({...userName,[e.target.name]:e.target.value })
+ async function handleSubmit(e) {
+   e.preventDefault()
+    const { data:{ _id } } = await api.post('/devs',{ username: userName })
+    history.push('/devs/'+ _id)
+    // const { target: { name: { value } } } = e
+    // console.log(userName,value)
  }
 
  return (
     <div className="login-container">
-        <form>
-          {JSON.stringify(userName)}
+        <form onSubmit={handleSubmit}>
+          {userName}
           <img src={logo} alt="tinDev"/>
           <input 
-          name="name"
-          user={userName.name}
-          type="text" 
-          placeholder="Digite seu usuario no github"
-          onChange={user}
-          />
-          <input 
-          name="password"
-          user={userName.password}
-          type="text" 
-          placeholder="Digite sua senha"
-          onChange={user}
+            name="name"
+            user={userName}
+            type="text" 
+            placeholder="Digite seu usuario no github"
+            onChange={({ target: { value } }) => setUserName(value)}
           />
           <button type="submit">Enviar</button>
         </form> 
     </div>
-)
+ )
 }
 
 export default Login

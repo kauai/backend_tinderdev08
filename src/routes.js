@@ -7,7 +7,7 @@ export default function Routes() {
    return(
        <Router>
            <Route path="/" exact component={ Loggin }/>
-           <Route path="/main" component={ Main }/>
+           <Route path="/devs/:id" component={ Main }/>
        </Router>
    )
 }
