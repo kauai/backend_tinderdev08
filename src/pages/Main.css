@@ -66,3 +66,7 @@
 .main-container ul li .buttons button:hover img{
     transform:translateY(-5px);
 }
+
+.no-followers{
+    color: #b59898;
+}
